@@ -4,7 +4,7 @@ class Degree extends React.Component {
 
         super(props)    //Initialise React Component
 
-        this.state = { degrecelsius: "0", degreefahrenheit: "32", bout: "L'eau ne bout pas" } //this.state état du composant,
+        this.state = { degrecelsius: "0", degreefahrenheit: "32", bout: "L'eau ne bout pas" }
 
         this.change_celsius = this.change_celsius.bind(this) // variable avec chaine vide
 
@@ -25,6 +25,12 @@ class Degree extends React.Component {
 
         }
 
+        else {
+
+            this.setState({ bout: "L'eau ne bout pas"})
+
+        }
+
     }
 
     change_fahrenheit(event) {
@@ -34,24 +40,28 @@ class Degree extends React.Component {
         this.setState({ degrecelsius: ( event.target.value - 32 ) * ( 5 / 9 )})
 
         this.setState({ degreefahrenheit: event.target.value })
-
-        if (event.target.value >= 212) {
-
-            this.setState({ bout: "L'eau bout"})
-
-            console.log(event.target.value)
-
         }
-
-    }
 
     render() {
 
-        return <div> 
+        let class_eau
+        let bout
 
-            <div className="flex">
+        if ( this.state.degrecelsius >= 100) {
 
-            <h2>Entrez Votre valeur en °C : &nbsp;</h2>
+            class_eau = 'img_display'
+
+            bout = 'bout'
+
+        }
+
+        return <div className={class_eau}> 
+
+            <h1>Convertisseur de Température : </h1>
+
+            <div>
+
+            <h2>Entrez votre valeur en °C : &nbsp;</h2>
 
             <input type="number" value={this.state.degrecelsius} onChange={this.change_celsius} />
 
@@ -60,28 +70,20 @@ class Degree extends React.Component {
             <br />
             <br />
 
-            <div className="flex">            
-            <h2>Entrez Votre valeur en °F : &nbsp;</h2>
+            <div>            
+            <h2>Entrez votre valeur en °F : &nbsp;</h2>
 
             <input type="number" value={this.state.degreefahrenheit} onChange={this.change_fahrenheit} />
             
             </div>
 
-            <br />
-            <br />
-
-            <div>
-
-            <p> {this.state.bout} </p>
-
-            </div>
+            <p className={bout}> {this.state.bout} </p>
 
         </div>
 
     }
 
 }
-
 
 let deg = <div>
 
